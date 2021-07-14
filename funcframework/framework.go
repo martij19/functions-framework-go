@@ -97,13 +97,13 @@ func RegisterCloudEventFunctionContext(ctx context.Context, path string, fn func
 }
 
 // Start serves an HTTP server with registered function(s).
-func Start(port string) error {
+func Start(host string, port string) error {
 	// Check if we have a function resource set, and if so, log progress.
 	if os.Getenv("K_SERVICE") == "" {
 		fmt.Println("Serving function...")
 	}
 
-	return http.ListenAndServe(":"+port, handler)
+	return http.ListenAndServe(host+":"+port, handler)
 }
 
 func registerHTTPFunction(path string, fn func(http.ResponseWriter, *http.Request), h *http.ServeMux) error {
