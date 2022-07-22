@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"os"
 	"reflect"
@@ -113,8 +114,7 @@ func RegisterCloudEventFunctionContext(ctx context.Context, path string, fn func
 	return err
 }
 
-// Start serves an HTTP server with registered function(s).
-func Start(port string) error {
+func StartWithHost(host string, port string) error {
 	// If FUNCTION_TARGET, try to start with that registered function
 	// If not set, assume non-declarative functions.
 	target := os.Getenv("FUNCTION_TARGET")
@@ -146,7 +146,12 @@ func Start(port string) error {
 		return fmt.Errorf("no matching function found with name: %q", target)
 	}
 
-	return http.ListenAndServe(":"+port, handler)
+	return http.ListenAndServe(net.JoinHostPort(host, port), handler)
+}
+
+// Start serves an HTTP server with registered function(s).
+func Start(port string) error {
+	return StartWithHost("", port)
 }
 
 func wrapHTTPFunction(path string, fn func(http.ResponseWriter, *http.Request)) (http.Handler, error) {
