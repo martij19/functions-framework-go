@@ -28,8 +28,8 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/GoogleCloudPlatform/functions-framework-go/internal/registry"
 	cloudevents "github.com/cloudevents/sdk-go/v2"
+	"github.com/martij19/functions-framework-go/internal/registry"
 )
 
 const (

@@ -19,8 +19,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/GoogleCloudPlatform/functions-framework-go/funcframework"
-	_ "github.com/GoogleCloudPlatform/functions-framework-go/testdata/conformance/function"
+	"github.com/martij19/functions-framework-go/funcframework"
+	_ "github.com/martij19/functions-framework-go/testdata/conformance/function"
 )
 
 // Main function used for testing only:
